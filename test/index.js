@@ -1,6 +1,15 @@
 const expect = require('expect');
 const plugin = require('..');
 
+const config = {
+  content: Buffer.from(`
+    states:
+      - in-progress
+      - in-review
+      - accepted
+  `).toString('base64')
+};
+
 class TestRobot {
   constructor(github) {
     this.handlers = {};
@@ -17,14 +26,14 @@ class TestRobot {
     const context = {
       event,
       github: this.github,
-      issue: args => args
+      issue: args => args,
+      repo: args => args
     };
 
     return Promise.all(handlers.map(handler => handler(event, context)));
   }
 
   log() {
-
   }
 }
 
@@ -35,6 +44,9 @@ describe('state', () => {
 
   beforeEach(() => {
     github = {
+      repos: {
+        getContent: expect.createSpy().andReturn(Promise.resolve(config))
+      },
       issues: {
         removeLabel: expect.createSpy()
       }
