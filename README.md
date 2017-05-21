@@ -2,7 +2,23 @@
 
 > a GitHub Integration built with [probot](https://github.com/probot/probot) that defines a state machine for GitHub Issues and Pull Requests
 
-## Setup
+## Usage
+
+1. **[Configure the GitHub Integration](https://github.com/integration/state)**
+2. Create `.github/state.yml`
+
+A `.github/state.yml` file is required to enable the plugin, and it must list the labels that are considered unique states:
+
+```yml
+states:
+- bug
+- enhancement
+- question
+```
+
+Whenever one of these labels are added to an Issue or Pull Request, it will remove labels for any of the other states.
+
+## Development
 
 ```
 # Install dependencies
