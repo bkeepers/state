@@ -14,6 +14,10 @@ states:
 - bug
 - enhancement
 - question
+
+# Name of project to update when state changes.
+# This add Issues and Pull Requests to columns with the same name as the states.
+project: Backlog
 ```
 
 Whenever one of these labels are added to an Issue or Pull Request, it will remove labels for any of the other states.
