@@ -1,5 +1,7 @@
 # Probot: State
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/probot/state.svg)](https://greenkeeper.io/)
+
 > a GitHub Integration built with [probot](https://github.com/probot/probot) that defines a state machine for GitHub Issues and Pull Requests
 
 ## Setup
