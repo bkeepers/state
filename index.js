@@ -23,11 +23,11 @@ module.exports = robot => {
       if (config.project) {
         robot.log('Updating project', config.project);
         const projects = await context.github.projects.getRepoProjects(context.repo());
-        const project = projects.find(project => project.name === config.project);
+        const project = projects.data.find(project => project.name === config.project);
 
         if (project) {
           const columns = await context.github.projects.getProjectColumns({project_id: project.id});
-          const column = columns.find(column => column.name === newLabel);
+          const column = columns.data.find(column => column.name === newLabel);
 
           if (column) {
             try {
@@ -44,7 +44,7 @@ module.exports = robot => {
               for (const column of columns) {
                 /* eslint-disable no-await-in-loop */
                 const cards = await context.github.projects.getProjectCards({column_id: column.id});
-                existingCard = cards.find(card => card.content_url === issue.url);
+                existingCard = cards.data.find(card => card.content_url === issue.url);
                 if (existingCard) {
                   break;
                 }
@@ -64,8 +64,8 @@ module.exports = robot => {
 
   async function getConfig(context) {
     const path = '.github/state.yml';
-    const data = await context.github.repos.getContent(context.repo({path}));
+    const res = await context.github.repos.getContent(context.repo({path}));
 
-    return yaml.load(Buffer.from(data.content, 'base64').toString()) || {};
+    return yaml.load(Buffer.from(res.data.content, 'base64').toString()) || {};
   }
 };
