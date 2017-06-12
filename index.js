@@ -37,7 +37,7 @@ module.exports = robot => {
                 content_type: event.payload.issue ? 'Issue' : 'PullRequest'
               });
             } catch (err) {
-              robot.log.error({err}, 'Card is already on project. Finding it…');
+              robot.log({err}, 'Card is already on project. Finding it…');
 
               let existingCard;
 
