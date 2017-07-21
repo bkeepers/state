@@ -66,6 +66,6 @@ module.exports = robot => {
     const path = '.github/state.yml';
     const res = await context.github.repos.getContent(context.repo({path}));
 
-    return yaml.load(Buffer.from(res.data.content, 'base64').toString()) || {};
+    return yaml.safeLoad(Buffer.from(res.data.content, 'base64').toString()) || {};
   }
 };
